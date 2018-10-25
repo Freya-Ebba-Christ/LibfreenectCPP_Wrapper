@@ -1,1 +1,1 @@
-# LibfreenectC-Wrapper
+# LibfreenectC++Wrapper
