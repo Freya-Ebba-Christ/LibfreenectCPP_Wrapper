@@ -180,7 +180,7 @@ private:
     std::vector<uint16_t> depthVector;
     std::vector<uint8_t> videoVector;
     int width = 640;
-    int height = 640;
+    int height = 480;
     uint32_t rgbVideoTimeStamp;
     uint32_t depthVideoTimeStamp;
 
