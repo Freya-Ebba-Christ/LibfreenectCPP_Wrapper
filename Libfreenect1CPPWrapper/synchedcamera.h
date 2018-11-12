@@ -113,40 +113,40 @@ public:
         uint32_t ts_video;
         uint32_t ts_depth;
 
-        cout << "setting and getting video and depth format" << endl;
+        std::cout << "setting and getting video and depth format" << std::endl;
         setVideoFormat(FREENECT_VIDEO_RGB);
         setDepthFormat(FREENECT_DEPTH_REGISTERED);
         if (getVideoFormat() != FREENECT_VIDEO_RGB) {
-            cout << "getVideoFormat() does not work" << endl;
+            std::cout << "getVideoFormat() does not work" << std::endl;
         }
         if (getDepthFormat() != FREENECT_DEPTH_REGISTERED) {
-            cout << "getDepthFormat() does not work" << endl;
+            std::cout << "getDepthFormat() does not work" << std::endl;
         }
 
-        cout << "setting and getting device index" << endl;
+        std::cout << "setting and getting device index" << std::endl;
         setVideoIndex(1);
         setDepthIndex(1);
         if (getVideoIndex() != 1) {
-            cout << "getting/setting video device index failed" << endl;
+            std::cout << "getting/setting video device index failed" << std::endl;
         }
         if (getVideoIndex() != 1) {
-            cout << "getting/setting depth device index failed" << endl;
+            std::cout << "getting/setting depth device index failed" << std::endl;
         }
         setVideoIndex(0);
         setDepthIndex(0);
 
-        cout << "testing getSynchedVideoAndDepth()" << endl;
+        std::cout << "testing getSynchedVideoAndDepth()" << std::endl;
         getSynchedVideoAndDepth((void**) &video, (void**) &depth, &ts_video, &ts_depth);
-        cout << "timestamp video: " << ts_video << endl;
-        cout << "timestamp depth: " << ts_depth << endl;
+        std::cout << "timestamp video: " << ts_video << std::endl;
+        std::cout << "timestamp depth: " << ts_depth << std::endl;
 
-        cout << "testing getSynchedVideo" << endl;
+        std::cout << "testing getSynchedVideo" << std::endl;
         getSynchedVideo((void**) &video, &ts_video);
-        cout << "timestamp video: " << ts_video << endl;
+        std::cout << "timestamp video: " << ts_video << std::endl;
 
-        cout << "testing getSynchedDepth()" << endl;
+        std::cout << "testing getSynchedDepth()" << std::endl;
         getSynchedDepth((void**) &depth, &ts_depth);
-        cout << "timestamp depth: " << ts_depth << endl;
+        std::cout << "timestamp depth: " << ts_depth << std::endl;
 
         static unsigned int indices[480][640];
         static unsigned int indices_[640 * 480];
