@@ -28,8 +28,10 @@
 class SynchedCamera {
 public:
 
-    SynchedCamera() : videoIndex(0), depthIndex(0) {
-
+    SynchedCamera(int channels = 4) : videoIndex(0), depthIndex(0), channels(channels) {
+        if (this->channels != 3 && this->channels != 4) {
+            this->channels = 4;
+        }
     }
 
     void init() {
@@ -38,8 +40,8 @@ public:
     }
 
     void start() {
-        this->videoVector.resize(640 * 480 * 4, 255);
-        this->depthVector.resize(640 * 480, 0);
+        this->videoVector.resize(width * height * this->channels, 255);
+        this->depthVector.resize(width * height, 0);
     }
 
     virtual ~SynchedCamera() {
@@ -85,6 +87,10 @@ public:
         return this->depthTimestamp;
     }
 
+    inline const int getChannels() {
+        return this->channels;
+    }
+
     void getSynchedFrames() {
         uint16_t *depth = 0;
         char *video = 0;
@@ -95,10 +101,12 @@ public:
         for (int y = 0; y < 480; ++y) {
             for (int x = 0; x < 640; ++x) {
                 int p = y * 640 + x;
-                videoVector[4 * p] = video[3 * p + 2];
-                videoVector[4 * p + 1] = video[3 * p + 1];
-                videoVector[4 * p + 2] = video[3 * p ];
-                videoVector[4 * p + 3] = 255;
+                videoVector[this->channels * p] = video[3 * p + 2];
+                videoVector[this->channels * p + 1] = video[3 * p + 1];
+                videoVector[this->channels * p + 2] = video[3 * p ];
+                if (this->channels == 4) {
+                    videoVector[this->channels * p + 3] = 255;
+                }
             }
         }
     }
@@ -183,6 +191,7 @@ private:
     int height = 480;
     uint32_t rgbVideoTimeStamp;
     uint32_t depthVideoTimeStamp;
+    int channels;
 
     void setVideoFormat(freenect_video_format fmt) {
         fmt_video = fmt;
