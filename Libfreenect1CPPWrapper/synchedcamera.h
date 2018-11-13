@@ -28,15 +28,17 @@
 class SynchedCamera {
 public:
 
-    SynchedCamera(int channels = 4) : videoIndex(0), depthIndex(0), channels(channels) {
+    SynchedCamera() : videoIndex(0), depthIndex(0) {
+
+    }
+
+    void init(int numChannels = 4) {
+        setDepthFormat(FREENECT_DEPTH_REGISTERED);
+        setVideoFormat(FREENECT_VIDEO_RGB);
+        this->channels = numChannels;
         if (this->channels != 3 && this->channels != 4) {
             this->channels = 4;
         }
-    }
-
-    void init() {
-        setDepthFormat(FREENECT_DEPTH_REGISTERED);
-        setVideoFormat(FREENECT_VIDEO_RGB);
     }
 
     void start() {
